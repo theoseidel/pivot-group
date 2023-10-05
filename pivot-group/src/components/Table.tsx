@@ -38,8 +38,9 @@ function Table({ rows, columns }: TableProps) {
       resizable: true,
       debounceMs: 0,
       sortable: true,
-      enableRowGroup: true,
+      // enableRowGroup: true,
       enableValue: true,
+      // pivot: true,
     }),
     []
   )
@@ -57,10 +58,7 @@ function Table({ rows, columns }: TableProps) {
   }, [])
 
   return (
-    <div
-      style={{ height: 600, width: "100%" }}
-      className="ag-theme-alpine-dark"
-    >
+    <div className="ag-theme-alpine-dark table-wrapper">
       <div className="table-options">
         <button className="filter-button" onClick={clearFilters}>
           Clear Filters
@@ -79,6 +77,7 @@ function Table({ rows, columns }: TableProps) {
         paginationPageSize={10}
         rowGroupPanelShow="always"
         sideBar={sidebar}
+        domLayout="autoHeight"
       />
     </div>
   )
