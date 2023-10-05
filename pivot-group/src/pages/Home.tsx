@@ -6,17 +6,16 @@ import { flexRender } from "@tanstack/react-table"
 function Home() {
   const data = useMemo(() => mData, [])
   const columns: Column[] = [
-    { name: "athlete_id", label: "Athlete ID", jsType: "number" },
+    { name: "order_id", label: "Order ID", jsType: "number" },
 
-    { name: "first_name", label: "First Name", jsType: "string" },
-    { name: "last_name", label: "Last Name", jsType: "string" },
+    { name: "product_name", label: "Product Name", jsType: "string" },
     {
-      name: "age",
-      label: "Age",
+      name: "quantity",
+      label: "Quantity",
       jsType: "number",
     },
-    { name: "country", label: "Country", jsType: "string" },
-    { name: "medal_count", label: "Medal Count", jsType: "number" },
+    { name: "price", label: "Price", jsType: "number" },
+    { name: "purchase_date", label: "Purchase Date", jsType: "date" },
   ]
   return (
     <>

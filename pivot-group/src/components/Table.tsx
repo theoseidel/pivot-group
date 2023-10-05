@@ -1,10 +1,10 @@
 import { AgGridReact } from "ag-grid-react"
 import "ag-grid-enterprise"
-import "ag-grid-community/styles/ag-theme-alpine.css"
 import "ag-grid-community/styles/ag-grid.css"
+import "ag-grid-community/styles/ag-theme-alpine.css"
 import "../styles.css"
 
-import { useMemo } from "react"
+import { useCallback, useMemo, useRef, useState } from "react"
 import { ColDef } from "ag-grid-community"
 
 export interface Column {
@@ -19,11 +19,15 @@ interface TableProps {
 }
 
 function Table({ rows, columns }: TableProps) {
+  const gridRef = useRef<AgGridReact>(null)
+  const [sidebar, setSidebar] = useState("filters")
+
   const columnDefs: ColDef[] = useMemo(
     () =>
       columns.map((column) => ({
         headerName: column.label,
         field: column.name,
+        filter: column.jsType === "date" ? "agDateColumnFilter" : true,
       })),
     [columns]
   )
@@ -31,28 +35,50 @@ function Table({ rows, columns }: TableProps) {
   const defaultColDef = useMemo(
     () => ({
       flex: 1,
-      sortable: true,
       resizable: true,
-      filter: true,
+      debounceMs: 0,
+      sortable: true,
       enableRowGroup: true,
-      deboounceMS: 0,
+      enableValue: true,
     }),
-
     []
   )
 
+  const clearFilters = useCallback(() => {
+    if (gridRef.current && gridRef.current.api) {
+      gridRef.current.api.setFilterModel(null)
+    }
+  }, [])
+
+  const toggleSidebar = useCallback(() => {
+    setSidebar((prevSidebar) =>
+      prevSidebar === "columns" ? "filters" : "columns"
+    )
+  }, [])
+
   return (
-    <div style={{ height: 302, width: 1200 }} className="ag-theme-alpine">
+    <div
+      style={{ height: 600, width: "100%" }}
+      className="ag-theme-alpine-dark"
+    >
+      <div className="table-options">
+        <button className="filter-button" onClick={clearFilters}>
+          Clear Filters
+        </button>
+        <button className="filter-button" onClick={toggleSidebar}>
+          Toggle Sidebar
+        </button>
+      </div>
       <AgGridReact
-        rowGroupPanelShow="always"
+        ref={gridRef}
+        defaultColDef={defaultColDef}
         rowData={rows}
         columnDefs={columnDefs}
         animateRows={true}
         pagination={true}
         paginationPageSize={10}
-        sideBar={"columns"}
-        defaultColDef={defaultColDef}
-        groupDisplayType="multipleColumns"
+        rowGroupPanelShow="always"
+        sideBar={sidebar}
       />
     </div>
   )

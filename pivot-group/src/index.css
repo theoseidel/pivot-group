@@ -1,1 +1,34 @@
+body {
+    background-color: #1e1e1e;
+    color: #21c1f3;
+}
 
+a {
+    color: #21c1f3;
+}
+
+button {
+    background-color: #008CBA;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #005f5f;
+    transform: scale(1.05);
+}
+
+button:active {
+    background-color: #004c4c;
+    transform: scale(1);
+}

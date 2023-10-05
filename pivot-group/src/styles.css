@@ -6,13 +6,40 @@
   }
   
   .ag-theme-alpine .ag-menu {
-    background-color: rgb(244, 220, 250); /* light purple */
+    background-color: rgb(244, 220, 250); 
   }
   
   .ag-theme-alpine .ag-tabs-header {
-    background-color: rgb(100, 32, 119); /* dark purple */
+    background-color: rgb(100, 32, 119); 
   }
   
   .ag-theme-alpine .ag-tabs-header .ag-icon {
     color: white;
   }
+
+
+  .filter-button {
+   
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+
+  }
+  
+  .filter-button:hover {
+    background-color: #444444;  
+  }
+
+  .table-options{
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    
+    width: fit-content;
+    height: fit-content;
+    margin-bottom: 5px;
+  }
+  
