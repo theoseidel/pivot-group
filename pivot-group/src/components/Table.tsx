@@ -11,6 +11,7 @@ export interface Column {
   name: string
   label: string
   jsType: "date" | "string" | "number"
+  pivot?: boolean
 }
 
 interface TableProps {
@@ -28,6 +29,7 @@ function Table({ rows, columns }: TableProps) {
         headerName: column.label,
         field: column.name,
         filter: column.jsType === "date" ? "agDateColumnFilter" : true,
+        pivot: column.pivot,
       })),
     [columns]
   )
@@ -38,9 +40,9 @@ function Table({ rows, columns }: TableProps) {
       resizable: true,
       debounceMs: 0,
       sortable: true,
-      // enableRowGroup: true,
+      enableRowGroup: true,
       enableValue: true,
-      // pivot: true,
+      enablePivot: true,
     }),
     []
   )

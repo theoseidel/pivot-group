@@ -8,13 +8,18 @@ function Home() {
   const columns: Column[] = [
     { name: "order_id", label: "Order ID", jsType: "number" },
 
-    { name: "product_name", label: "Product Name", jsType: "string" },
+    {
+      name: "product_name",
+      label: "Product Name",
+      jsType: "string",
+      pivot: true,
+    },
     {
       name: "quantity",
       label: "Quantity",
       jsType: "number",
     },
-    { name: "price", label: "Price", jsType: "number" },
+    { name: "price", label: "Price", jsType: "number", pivot: true },
     { name: "purchase_date", label: "Purchase Date", jsType: "date" },
   ]
   return (
