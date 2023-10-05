@@ -22,6 +22,7 @@ interface TableProps {
 function Table({ rows, columns }: TableProps) {
   const gridRef = useRef<AgGridReact>(null)
   const [sidebar, setSidebar] = useState("filters")
+  const [theme, setTheme] = useState("ag-theme-alpine-dark")
 
   const columnDefs: ColDef[] = useMemo(
     () =>
@@ -33,6 +34,13 @@ function Table({ rows, columns }: TableProps) {
       })),
     [columns]
   )
+  const toggleTheme = useCallback(() => {
+    setTheme((prevTheme) =>
+      prevTheme === "ag-theme-alpine"
+        ? "ag-theme-alpine-dark"
+        : "ag-theme-alpine"
+    )
+  }, [])
 
   const defaultColDef = useMemo(
     () => ({
@@ -60,7 +68,7 @@ function Table({ rows, columns }: TableProps) {
   }, [])
 
   return (
-    <div className="ag-theme-alpine-dark table-wrapper">
+    <div className={theme + " table-wrapper"}>
       <div className="table-options">
         <button className="filter-button" onClick={clearFilters}>
           Clear Filters
@@ -81,6 +89,13 @@ function Table({ rows, columns }: TableProps) {
         sideBar={sidebar}
         domLayout="autoHeight"
       />
+      <button
+        style={{ marginTop: 5 }}
+        className="filter-button"
+        onClick={toggleTheme}
+      >
+        Toggle Theme
+      </button>
     </div>
   )
 }
